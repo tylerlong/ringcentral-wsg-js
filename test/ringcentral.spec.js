@@ -20,4 +20,5 @@ const rc = new RingCentral(
 
   const r = await rc.get('/restapi/v1.0/account/~/extension/~')
   console.log(r.data)
+  console.log(r.headers)
 })()

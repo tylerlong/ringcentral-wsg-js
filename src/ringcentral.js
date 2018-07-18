@@ -1,6 +1,7 @@
 import RingCentralRest from 'ringcentral-js-concise'
 import WS from 'ws'
 import uuid from 'uuid/v1'
+import delay from 'timeout-as-promise'
 
 class RingCentral extends RingCentralRest {
   constructor (clientId, clientSecret, httpsServer, wssServer) {
@@ -9,9 +10,18 @@ class RingCentral extends RingCentralRest {
     for (const event of ['close', 'error', 'message', 'open', 'ping', 'pong', 'unexpected-response', 'upgrade']) {
       this.ws.on(event, (...args) => this.emit(event, ...args))
     }
+    this.opened = false
+    const openHandler = () => {
+      this.opened = true
+      this.ws.off('open', openHandler)
+    }
+    this.ws.on('open', openHandler)
   }
 
-  request (config) {
+  async request (config) {
+    while (!this.opened) {
+      await delay(1000)
+    }
     return new Promise((resolve, reject) => {
       const uid = uuid()
       this.ws.send(JSON.stringify(
