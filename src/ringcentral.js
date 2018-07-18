@@ -22,6 +22,22 @@ class RingCentral extends RingCentralRest {
     this.ws.close()
   }
 
+  async subscribe (eventFilters, callback) {
+    const r = await this.post('/restapi/v1.0/subscription', {
+      eventFilters,
+      deliveryMode: {
+        transportType: 'WebSocket'
+      }
+    })
+    const subscriptionId = r.data.id
+    this.ws.on('message', data => {
+      const [meta, body] = JSON.parse(data)
+      if (meta.type === 'ServerNotification' && body.subscriptionId === subscriptionId) {
+        callback(body)
+      }
+    })
+  }
+
   async request (config) {
     while (!this.opened) {
       await delay(1000)

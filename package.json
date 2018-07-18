@@ -8,7 +8,7 @@
   "main": "dist/ringcentral.js",
   "module": "src/ringcentral.js",
   "scripts": {
-    "test": "node -r babel-register -r babel-polyfill test/ringcentral.spec.js",
+    "test": "node -r babel-register -r babel-polyfill test/subscription.spec.js",
     "release": "webpack --progress --colors"
   },
   "dependencies": {

@@ -29,9 +29,9 @@ yarn add ringcentral-wsg
 `ringcentral-wsg` depends on `ringcentral-js-concise` which depends on `axios`. With the code above you will have a global variable named `RingCentral`.
 
 
-## Usage
+## Basic Usage
 
-The usage is almost the same as you use RingCentral Restful API. The API interface mocks the famouse HTTP client library [axios](https://github.com/axios/axios).
+The usage is almost the same as you use RingCentral Restful API. The API interface mocks the famous HTTP client library [axios](https://github.com/axios/axios).
 
 
 ```js
@@ -53,4 +53,37 @@ console.log(r.data)
 console.log(r.headers)
 
 await rc.revoke()
+```
+
+
+## Send SMS
+
+```js
+await rc.post('/restapi/v1.0/account/~/extension/~/sms', {
+  to: [{ phoneNumber: process.env.RINGCENTRAL_RECEIVER }],
+  from: { phoneNumber: process.env.RINGCENTRAL_USERNAME },
+  text: 'Hello world'
+})
+```
+
+
+## Subscription
+
+```js
+rc.subscribe(['/restapi/v1.0/account/~/extension/~/message-store'], data => {
+  console.log(data)
+})
+```
+
+
+## Access underlying WebSocket object
+
+Normally you don't need to access the WebSocket object, because this library has provided you with easier to use API interface.
+
+But in case you do have the needs, WebSocket object is available as `rc.ws`. For example:
+
+```js
+rc.ws.on('message', data => {
+  console.log('WebSocket message', data)
+})
 ```
