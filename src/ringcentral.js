@@ -17,23 +17,30 @@ class RingCentral extends RingCentralRest {
     this.ws.on('open', openHandler)
   }
 
+  async revoke () {
+    await super.revoke()
+    this.ws.close()
+  }
+
   async request (config) {
     while (!this.opened) {
       await delay(1000)
     }
     return new Promise((resolve, reject) => {
       const uid = uuid()
-      this.ws.send(JSON.stringify(
-        [
-          {
-            'type': 'ClientRequest',
-            'messageId': uid,
-            'method': config.method,
-            'path': config.url,
-            'headers': this._patchHeaders(config.headers)
-          }
-        ]
-      ))
+      const body = [
+        {
+          type: 'ClientRequest',
+          messageId: uid,
+          method: config.method,
+          path: config.url,
+          headers: this._patchHeaders(config.headers)
+        }
+      ]
+      if (config.data) {
+        body.push(config.data)
+      }
+      this.ws.send(JSON.stringify(body))
       const handler = data => {
         const [meta, body] = JSON.parse(data)
         if (meta.messageId === uid && meta.type === 'ClientRequest') {
