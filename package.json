@@ -1,12 +1,22 @@
 {
   "name": "ringcentral-wsg",
   "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "test": "node -r babel-register -r babel-polyfill test/ringcentral.spec.js"
+  },
+  "dependencies": {
+    "ringcentral-js-concise": "^0.5.3",
+    "uuid": "^3.3.2",
+    "ws": "^5.2.2"
+  },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "dotenv": "^6.0.0",
     "eslint-plugin-html": "^4.0.5",
     "standard": "^11.0.1",
     "yarn-upgrade-all": "^0.3.0"
-  },
-  "dependencies": {
-    "ringcentral-js-concise": "^0.5.3"
   }
 }
