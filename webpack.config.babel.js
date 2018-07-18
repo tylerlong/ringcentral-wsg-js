@@ -16,6 +16,12 @@ export default {
       commonjs2: 'axios',
       amd: 'axios',
       root: 'axios'
+    },
+    ws: {
+      commonjs: 'ws',
+      commonjs2: 'ws',
+      amd: 'ws',
+      root: 'WebSocket'
     }
   }
 }

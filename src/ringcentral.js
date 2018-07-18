@@ -3,13 +3,12 @@ import WS from 'ws'
 import uuid from 'uuid/v1'
 import delay from 'timeout-as-promise'
 
+import WSGError from './wsg-error'
+
 class RingCentral extends RingCentralRest {
   constructor (clientId, clientSecret, httpsServer, wssServer) {
     super(clientId, clientSecret, httpsServer)
     this.ws = new WS(wssServer)
-    for (const event of ['close', 'error', 'message', 'open', 'ping', 'pong', 'unexpected-response', 'upgrade']) {
-      this.ws.on(event, (...args) => this.emit(event, ...args))
-    }
     this.opened = false
     const openHandler = () => {
       this.opened = true
@@ -58,13 +57,6 @@ class RingCentral extends RingCentralRest {
       }
       this.ws.on('message', handler)
     })
-  }
-}
-
-class WSGError extends Error {
-  constructor (response) {
-    super()
-    this.response = response
   }
 }
 

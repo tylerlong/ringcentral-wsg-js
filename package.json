@@ -1,14 +1,22 @@
 {
   "name": "ringcentral-wsg",
   "version": "0.1.0",
+  "description": "RingCentral WSG JavaScript SDK",
+  "repository": "git@github.com:tylerlong/ringcentral-wsg.git",
+  "author": "Tyler Liu <tyler.liu@ringcentral.com>",
   "license": "MIT",
+  "main": "dist/ringcentral.js",
+  "module": "src/ringcentral.js",
   "scripts": {
-    "test": "node -r babel-register -r babel-polyfill test/ringcentral.spec.js"
+    "test": "node -r babel-register -r babel-polyfill test/ringcentral.spec.js",
+    "release": "webpack --progress --colors"
   },
   "dependencies": {
     "ringcentral-js-concise": "^0.5.3",
     "timeout-as-promise": "^1.0.0",
     "uuid": "^3.3.2",
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.0.8",
     "ws": "^5.2.2"
   },
   "devDependencies": {
@@ -19,5 +27,10 @@
     "eslint-plugin-html": "^4.0.5",
     "standard": "^11.0.1",
     "yarn-upgrade-all": "^0.3.0"
-  }
+  },
+  "files": [
+    "dist/*",
+    "src/*",
+    "yarn.lock"
+  ]
 }
