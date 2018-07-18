@@ -29,7 +29,7 @@ yarn add ringcentral-wsg
 `ringcentral-wsg` depends on `ringcentral-js-concise` which depends on `axios`. With the code above you will have a global variable named `RingCentral.default`.
 
 
-## Basic Usage
+## Basic usage
 
 The usage is almost the same as you use RingCentral Restful API. The API interface mocks the famous HTTP client library [axios](https://github.com/axios/axios).
 
@@ -87,3 +87,10 @@ rc.ws.on('message', data => {
   console.log('WebSocket message', data)
 })
 ```
+
+
+## About authorization
+
+Currently authorization is still done via Restful API.
+Because the WSG project hasn't decided whether to move authorization to WebSocket yet.
+This behavior might change in the future.
