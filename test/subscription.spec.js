@@ -1,9 +1,12 @@
+/* eslint-env jest */
 import dotenv from 'dotenv'
 import delay from 'timeout-as-promise'
 
 import RingCentral from '../src/ringcentral'
 
 dotenv.config()
+
+jest.setTimeout(128000)
 
 const rc = new RingCentral(
   process.env.RINGCENTRAL_CLIENT_ID,
@@ -12,7 +15,7 @@ const rc = new RingCentral(
   process.env.RINGCENTRAL_WSG_URL
 )
 
-;(async () => {
+test('subscription', async () => {
   await rc.authorize({
     username: process.env.RINGCENTRAL_USERNAME,
     extension: process.env.RINGCENTRAL_EXTENSION,
@@ -20,8 +23,10 @@ const rc = new RingCentral(
   })
 
   // setup subscription
+  let count = 0
   rc.subscribe(['/restapi/v1.0/account/~/extension/~/message-store'], data => {
-    console.log(data)
+    // console.log(data)
+    count += 1
   })
 
   // send SMS
@@ -33,5 +38,7 @@ const rc = new RingCentral(
 
   await delay(15000) // wait for the notification
 
+  expect(count).toBeGreaterThanOrEqual(1)
+
   await rc.revoke()
-})()
+})

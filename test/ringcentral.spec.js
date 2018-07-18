@@ -1,8 +1,11 @@
+/* eslint-env jest */
 import dotenv from 'dotenv'
 
 import RingCentral from '../src/ringcentral'
 
 dotenv.config()
+
+jest.setTimeout(128000)
 
 const rc = new RingCentral(
   process.env.RINGCENTRAL_CLIENT_ID,
@@ -11,7 +14,7 @@ const rc = new RingCentral(
   process.env.RINGCENTRAL_WSG_URL
 )
 
-;(async () => {
+test('ringcentral', async () => {
   await rc.authorize({
     username: process.env.RINGCENTRAL_USERNAME,
     extension: process.env.RINGCENTRAL_EXTENSION,
@@ -19,8 +22,9 @@ const rc = new RingCentral(
   })
 
   const r = await rc.get('/restapi/v1.0/account/~/extension/~')
-  console.log(r.data)
-  console.log(r.headers)
+  // console.log(r.data)
+  // console.log(r.headers)
+  expect(r.status).toBe(200)
 
   await rc.revoke()
-})()
+})
