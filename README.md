@@ -26,7 +26,7 @@ yarn add ringcentral-wsg
 <script src="https://unpkg.com/ringcentral-wsg@0.1.0/dist/ringcentral.js"></script>
 ```
 
-`ringcentral-wsg` depends on `ringcentral-js-concise` which depends on `axios`. With the code above you will have a global variable named `RingCentral`.
+`ringcentral-wsg` depends on `ringcentral-js-concise` which depends on `axios`. With the code above you will have a global variable named `RingCentral.default`.
 
 
 ## Basic Usage
@@ -78,7 +78,7 @@ rc.subscribe(['/restapi/v1.0/account/~/extension/~/message-store'], data => {
 
 ## Access underlying WebSocket object
 
-Normally you don't need to access the WebSocket object, because this library has provided you with easier to use API interface.
+Normally you don't need to access the WebSocket object, because this library provides you with easier to use API interfaces.
 
 But in case you do have the needs, WebSocket object is available as `rc.ws`. For example:
 

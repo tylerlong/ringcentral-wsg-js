@@ -12,9 +12,9 @@ class RingCentral extends RingCentralRest {
     this.opened = false
     const openHandler = () => {
       this.opened = true
-      this.ws.off('open', openHandler)
+      this.ws.removeEventListener('open', openHandler)
     }
-    this.ws.on('open', openHandler)
+    this.ws.addEventListener('open', openHandler)
   }
 
   async revoke () {
@@ -30,8 +30,8 @@ class RingCentral extends RingCentralRest {
       }
     })
     const subscriptionId = r.data.id
-    this.ws.on('message', data => {
-      const [meta, body] = JSON.parse(data)
+    this.ws.addEventListener('message', event => {
+      const [meta, body] = JSON.parse(event.data)
       if (meta.type === 'ServerNotification' && body.subscriptionId === subscriptionId) {
         callback(body)
       }
@@ -57,10 +57,10 @@ class RingCentral extends RingCentralRest {
         body.push(config.data)
       }
       this.ws.send(JSON.stringify(body))
-      const handler = data => {
-        const [meta, body] = JSON.parse(data)
+      const handler = event => {
+        const [meta, body] = JSON.parse(event.data)
         if (meta.messageId === uid && meta.type === 'ClientRequest') {
-          this.ws.off('message', handler)
+          this.ws.removeEventListener('message', handler)
           if (meta.status > 199 && meta.status < 300) {
             resolve({
               data: body,
@@ -78,7 +78,7 @@ class RingCentral extends RingCentralRest {
           }
         }
       }
-      this.ws.on('message', handler)
+      this.ws.addEventListener('message', handler)
     })
   }
 }

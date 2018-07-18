@@ -1,6 +1,6 @@
 {
   "name": "ringcentral-wsg",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "RingCentral WSG JavaScript SDK",
   "repository": "git@github.com:tylerlong/ringcentral-wsg.git",
   "author": "Tyler Liu <tyler.liu@ringcentral.com>",
