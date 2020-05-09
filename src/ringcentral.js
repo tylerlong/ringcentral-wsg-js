@@ -1,6 +1,6 @@
 import RingCentralRest from 'ringcentral-js-concise'
 import WS from 'ws'
-import uuid from 'uuid/v1'
+import { v1 as uuid } from 'uuid'
 import delay from 'timeout-as-promise'
 
 import WSGError from './wsg-error'
