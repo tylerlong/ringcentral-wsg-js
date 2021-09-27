@@ -1,12 +1,13 @@
+# Deprecated
+
+Users should use [@rc-ex/ws](https://github.com/ringcentral/ringcentral-extensible/tree/master/packages/extensions/ws) instead.
+
+
 # RingCentral WSG JavaScript SDK
 
 [![Build Status](https://travis-ci.org/tylerlong/ringcentral-wsg-js.svg?branch=master)](https://travis-ci.org/tylerlong/ringcentral-wsg-js)
 [![npm version](https://badge.fury.io/js/ringcentral-wsg.svg)](https://badge.fury.io/js/ringcentral-wsg)
 
-
-## Deprecated
-
-Users should use [@rc-ex/ws](https://github.com/ringcentral/ringcentral-extensible/tree/master/packages/extensions/ws) instead.
 
 RingCentral WSG is short for RingCentral WebSocket API Gateway.
 
